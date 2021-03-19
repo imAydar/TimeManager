@@ -22,7 +22,7 @@
       </el-table-column>
       <el-table-column >
         <template slot-scope="scope">
-          <el-popconfirm @confirm="deleteUser(scope.row.id)" title="Вы уверены?">
+          <el-popconfirm @confirm="deleteUser(scope.row.id)" title="Вы уверены? Отчеты пользователя так же будут удалены">
             <el-button slot="reference" type="danger">Удалить</el-button>
           </el-popconfirm>
         </template>

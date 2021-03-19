@@ -45,6 +45,7 @@ export default {
                     this.form[prop] = null;
             }
             if (!this.validateEmail(this.form.email)) {
+                this.errors = [];
                 this.errors.push("mail is not valid");
                 return false;
             }
@@ -57,7 +58,6 @@ export default {
         sendForm() {
             if (!this.checkInputs())
                 return;
-            this.errors = [];
             if (this.form.id) { // если есть id значит мы редактируем
                 axios.put('/api/user',
                     JSON.stringify(this.form), {
@@ -68,7 +68,8 @@ export default {
                 ).then(() => { //если все хорошо закрываем модалку
                     this.handleClose();
                 }).catch((error) => {
-                    let msg = error.response.data
+                    let msg = error.response.data;
+                    this.errors = [];
                     this.errors.push(msg);
                 });
             } else { // если нет id значит мы создаем
@@ -82,7 +83,8 @@ export default {
                 ).then(() => {
                     this.handleClose();
                 }).catch((error) => {
-                    let msg = error.response.data
+                    let msg = error.response.data;
+                    this.errors = [];
                     this.errors.push(msg);
                 });
             }

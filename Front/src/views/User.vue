@@ -19,16 +19,16 @@
              scope.row.description}}</el-button>
          </template>
       </el-table-column>
-      <el-table-column prop="hours" label="Hours" width="100%" ></el-table-column>
-      <el-table-column width="100px">
+      <el-table-column prop="hours" label="Часов" width="100%" ></el-table-column>
+      <el-table-column width="150px">
         <template slot-scope="scope">
-          <el-button @click="editReport(scope.row)">Edit</el-button>
+          <el-button @click="editReport(scope.row)">Редактировать</el-button>
         </template>
       </el-table-column>
-      <el-table-column width="100px">
+      <el-table-column width="140px">
         <template slot-scope="scope">
-          <el-popconfirm @confirm="deleteReport(scope.row.id)" title="Are you sure to delete this?">
-            <el-button slot="reference" type="danger">Delete</el-button>
+          <el-popconfirm @confirm="deleteReport(scope.row.id)" title="Вы уверены?">
+            <el-button slot="reference" type="danger">Удалить</el-button>
           </el-popconfirm>
         </template>
       </el-table-column>
