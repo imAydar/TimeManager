@@ -3,5 +3,5 @@
 ## Project setup
 ```
 cd TimeManager.Web
-dotner run
+dotnet run
 ```
