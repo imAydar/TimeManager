@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "warnings": [
+    {
+      "code": "V052",
+      "cwe": 0,
+      "level": 0,
+      "positions": [],
+      "message": "Analysis results of the \u0027TimeManager.Data\u0027 project may be incomplete because analysis of .NET 5 projects is not yet supported by PVS-Studio. \r\nAnalysis results of the \u0027TimeManager.Web\u0027 project may be incomplete because analysis of .NET 5 projects is not yet supported by PVS-Studio. \r\nAnalysis results of the \u0027TimeManager.Core\u0027 project may be incomplete because analysis of .NET 5 projects is not yet supported by PVS-Studio. \r\n",
+      "projects": [],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V051",
+      "cwe": 0,
+      "level": 3,
+      "positions": [],
+      "message": "Some of the references in \u0027TimeManager.Data\u0027 project are missing or incorrect. The analysis results could be incomplete. Consider making the project fully compilable and building it before analysis.",
+      "projects": [],
+      "favorite": false,
+      "falseAlarm": false
+    },
+    {
+      "code": "V051",
+      "cwe": 0,
+      "level": 3,
+      "positions": [],
+      "message": "Some of the references in \u0027TimeManager.Web\u0027 project are missing or incorrect. The analysis results could be incomplete. Consider making the project fully compilable and building it before analysis.",
+      "projects": [],
+      "favorite": false,
+      "falseAlarm": false
+    }
+  ]
+}
