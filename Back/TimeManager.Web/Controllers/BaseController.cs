@@ -1,11 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Npgsql;
-using TimeManager.Data.Repositories;
 using TimeManager.Data.Repositories.Interfaces;
 using TimeManager.Web.Exceptions;
 

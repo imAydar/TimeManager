@@ -1,10 +1,7 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TimeManager.Data.Entities;
 using TimeManager.Data.Repositories.Interfaces;
 using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace TimeManager.Web.Controllers
