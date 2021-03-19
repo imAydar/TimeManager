@@ -3,6 +3,8 @@ using TimeManager.Data.Entities;
 using TimeManager.Data.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
+using TimeManager.Web.Exceptions;
 
 namespace TimeManager.Web.Controllers
 {
@@ -18,9 +20,16 @@ namespace TimeManager.Web.Controllers
         }
 
         [HttpGet("GetReportsByUserId/{userId}")]
-        public async  Task<IEnumerable<Report>>  GetReportsByUserId(int userId)
+        public async Task<IActionResult> GetReportsByUserId(int userId)
         {
-            return await repository.GetReportsByUserIdAsync(userId);
+            try
+            {
+                return Ok(await repository.GetReportsByUserIdAsync(userId));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(PostgreCustomExceptionHandler.Handle(ex));
+            }
         }
     }
 }

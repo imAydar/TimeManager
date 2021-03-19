@@ -11,7 +11,6 @@ namespace TimeManager.Data.Entities
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string Email { get; set; }
-
         public virtual ICollection<Report> Reports { get; set; }
         
     }
