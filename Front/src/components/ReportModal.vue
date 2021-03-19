@@ -15,7 +15,7 @@
                <el-date-picker  v-model="form.startDate" type="datetime" placeholder="Pick a day"></el-date-picker>
             </el-form-item>
             <el-form-item label="Часы">
-                 <el-input-number v-model="form.hours" :precision="2" :step="0.1" :max="10" min="0.05" ></el-input-number>
+                 <el-input-number v-model="form.hours" :precision="2" :step="0.1" :max="10" min="0.1" ></el-input-number>
             </el-form-item>
          </el-form>
          <span slot="footer" class="dialog-footer">
@@ -49,7 +49,7 @@ export default {
                 return;
             this.errors = [];
             if (this.form.id) { // если есть id значит мы редактируем
-                axios.put('/api/user',
+                axios.put('/api/report',
                     JSON.stringify(this.form), {
                         headers: {
                             'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ export default {
                 });
             } else { // если нет id значит мы создаем
                 this.form.id = 0;
-                axios.post("/api/user",
+                axios.post("/api/report",
                     JSON.stringify(this.form), {
                         headers: {
                             'Content-Type': 'application/json'

@@ -7,12 +7,12 @@
     </div>
     <el-table :data="reports" stripe style="width: 100%" v-loading="loadingTable">
       <el-table-column prop="id" label="ID" width="55%"></el-table-column>
-      <el-table-column prop="startDate" label="Start date">
+      <el-table-column prop="startDate" label="Начало">
         <template slot-scope="scope">
           <el-date-picker v-model="scope.row.startDate" type="datetime" :readonly="true"></el-date-picker>
         </template>
       </el-table-column>
-      <el-table-column prop="description" label="Description">
+      <el-table-column prop="description" label="Описание">
          <template slot-scope="scope">
            <el-button @click="editReport(scope.row)" type="text">{{scope.row.description.length > 50 ? 
              scope.row.description.substring(0,50) + "..." : 
