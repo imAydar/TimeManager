@@ -69,7 +69,7 @@ export default {
       });
     },
     createReport(userId) {
-        this.form = { id:0, startDate:null, description:null, userId:userId, hours:null};
+        this.form = { id:0, startDate:new Date(), description:null, userId:userId, hours:null};
         this.visible = true;
       },
     editReport(report) {

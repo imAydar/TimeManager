@@ -1,7 +1,7 @@
 <template>
     <div>
-        <el-dialog title="Пользователь" :visible="visible" width="30%" :before-close="handleClose">
-            <p v-if="this.errors" class="errors">
+        <el-dialog title="Пользователь" :visible="visible" width="30%" :before-close="handleClose" @close="onClose">
+            <p v-if="this.errors.length > 0" class="errors">
                 <b>Пожалуйста исправьте указанные ошибки:</b>
                 <ul>
                     <li v-for="error in this.errors" :key="error">{{ error }}</li>
@@ -32,11 +32,16 @@
 import axios from 'axios';
 
 export default {
+    data(){
+        return{
+            errors:[]
+        }
+    },
     props: {
         visible: Boolean,
         handleClose: Function,
-        form: Object,
-        errors: []
+        form: Object
+        ///errors: []
     },
     methods: {
         checkInputs() {
@@ -45,7 +50,7 @@ export default {
                     this.form[prop] = null;
             }
             if (!this.validateEmail(this.form.email)) {
-                this.errors = [];
+               // this.errors = [];
                 this.errors.push("mail is not valid");
                 return false;
             }
@@ -69,7 +74,7 @@ export default {
                     this.handleClose();
                 }).catch((error) => {
                     let msg = error.response.data;
-                    this.errors = [];
+                   // this.errors = [];
                     this.errors.push(msg);
                 });
             } else { // если нет id значит мы создаем
@@ -84,10 +89,14 @@ export default {
                     this.handleClose();
                 }).catch((error) => {
                     let msg = error.response.data;
-                    this.errors = [];
+               //     this.errors = [];
                     this.errors.push(msg);
                 });
             }
+        },
+        onClose(){
+            console.log("onClose");
+            this.errors = [];
         }
     }
 }

@@ -12,7 +12,7 @@
                <el-input type="textarea" :rows="5" class="descripton" v-model="form.description"></el-input>
             </el-form-item>
             <el-form-item label="Дата начала">
-               <el-date-picker  v-model="form.startDate" type="datetime" placeholder="Pick a day"></el-date-picker>
+               <el-date-picker v-model="form.startDate" type="datetime" placeholder="Pick a day" :clearable="false"></el-date-picker>
             </el-form-item>
             <el-form-item label="Часы">
                  <el-input-number v-model="form.hours" :precision="2" :step=0.1 :max=10 :min=0.05 ></el-input-number>
@@ -38,9 +38,9 @@ export default {
     },
     methods: {
         checkInputs() {
-            for(let i = 0; i < this.form.length; i++){
-                if(this.form[i] == "")
-                    this.form[i] = null;
+            for (var prop in this.form) {
+                if (this.form[prop] == "")
+                    this.form[prop] = null;
             }
             return true;
         },
