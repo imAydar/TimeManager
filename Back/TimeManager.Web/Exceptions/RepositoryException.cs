@@ -19,7 +19,9 @@ namespace TimeManager.Web.Exceptions
                         return "Поле не может быть пустым " + postgresEx.ColumnName;
                 }
             }
-            return exception.InnerException.Message ?? exception.Message;
+            return exception.InnerException == null ?
+                exception.Message :
+                exception.InnerException.Message;
         }
 
         /// <summary>

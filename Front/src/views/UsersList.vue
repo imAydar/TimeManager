@@ -34,64 +34,78 @@
   </div>
 </template>
 <script>
-  import axios from 'axios';
-  import UserModal from '@/components/UserModal.vue';
+import UserModal from '@/components/UserModal.vue';
+import { http } from '@/helpers/http-common';
 
-  export default {
-    components: {
-      UserModal
+export default {
+  components: {
+    UserModal
+  },
+  data() {
+    return {
+      form: {
+        id: null,
+        firstName: null,
+        lastName: null,
+        middleName: null,
+        email: null
+      },
+      visible: false,
+      users: [],
+      loadingTable: false
+    }
+  },
+  methods: {
+    editUser(user) {
+      this.form = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        middleName: user.middleName,
+        email: user.email
+      };
+      this.visible = true;
     },
-    data() {
-      return {
-        form: { id: null, firstName: null, lastName: null, middleName: null, email: null },
-        visible: false,
-        users: [],
-        loadingTable: false
-      }
+    createUser() {
+      this.form = {
+        id: null,
+        firstName: null,
+        lastName: null,
+        middleName: null,
+        email: null
+      };
+      this.visible = true;
     },
-    methods: {
-      editUser(user) {
-        this.form = {
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          middleName: user.middleName,
-          email: user.email
-        };
-        this.visible = true;
-      },
-      createUser() {
-        this.form = { id: null, firstName: null, lastName: null, middleName: null, email: null };
-        this.visible = true;
-      },
-      openUser(user) {
-        this.$router.push('/user/' + user.id);
-      },
-      deleteUser(id) {
-        this.form = {id: id};//для удаления достаточно только id
-        axios.delete('http://localhost:5001/user', {
-                    data: this.form
-                }).then(() => {
-                    this.handleClose(); 
-                });
-      },
-      loadUsers() {
-        this.loadingTable = true;
-        axios.get('http://localhost:5001/user').then(users => {
-          this.users = users.data;
-        }).finally(()=>{
-          this.loadingTable = false;
-          });
-      },
-      handleClose() {
-        this.visible = false;
-        this.loadUsers();
-      }
+    openUser(user) {
+      this.$router.push('/user/' + user.id);
     },
-    mounted() {
+    deleteUser(id) {
+      this.form = {
+        id: id
+      }; //для удаления достаточно только id
+      http.delete('user', {
+        data: this.form
+      }).then(() => {
+        this.handleClose();
+      });
+    },
+    loadUsers() {
+      this.loadingTable = true;
+      http.get('user').then(users => {
+        this.users = users.data;
+      }).finally(() => {
+        this.loadingTable = false;
+      });
+    },
+    handleClose() {
+      this.visible = false;
       this.loadUsers();
     }
+  },
+  mounted() {
+    this.loadUsers();
   }
+}
 </script>
 <style scoped>
  

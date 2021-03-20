@@ -19,71 +19,63 @@
             </el-form-item>
          </el-form>
          <span slot="footer" class="dialog-footer">
-            <el-button @click="handleClose()">Cancel</el-button>
-            <el-button type="primary" @click="sendForm()">Confirm</el-button>
+            <el-button @click="handleClose()">Отмена</el-button>
+            <el-button type="primary" @click="sendForm()">Ок</el-button>
          </span>
       </el-dialog>
       
    </div>
 </template>
 <script>
-import axios from 'axios';
+import { http } from '@/helpers/http-common';
 
 export default {
-    data(){
-        return{
-            errors:[]
-        }
-    },
-    props: {
-        visible: Boolean,
-        handleClose: Function,
-        form: Object
-    },
-    methods: {
-        checkInputs() {
-            for (var prop in this.form) {
-                if (this.form[prop] == "")
-                    this.form[prop] = null;
-            }
-            return true;
-        },
-        sendForm() {
-            if (!this.checkInputs())
-                return;
-            if (this.form.id) { // если есть id значит мы редактируем
-                axios.put('/api/report',
-                    JSON.stringify(this.form), {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                ).then(() => { //если все хорошо закрываем модалку
-                    this.handleClose();
-                }).catch((error) => {
-                    let msg = error.response.data
-                    this.errors.push(msg);
-                });
-            } else { // если нет id значит мы создаем
-                this.form.id = 0;
-                axios.post("/api/report",
-                    JSON.stringify(this.form), {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                ).then(() => {
-                    this.handleClose();
-                }).catch((error) => {
-                    let msg = error.response.data;
-                    this.errors.push(msg);
-                });
-            }
-        },
-        onClose(){
-            this.errors = [];
-        }
+  data() {
+    return {
+      errors: []
     }
+  },
+  props: {
+    visible: Boolean,
+    handleClose: Function,
+    form: Object
+  },
+  methods: {
+    checkInputs() {
+      for (var prop in this.form) {
+        if (this.form[prop] == "")
+          this.form[prop] = null;
+      }
+      return true;
+    },
+    sendForm() {
+      if (!this.checkInputs())
+        return;
+      if (this.form.id) { // если есть id значит мы редактируем
+        http.put('report',
+          JSON.stringify(this.form)
+        ).then(() => { //если все хорошо закрываем модалку
+          this.handleClose();
+        }).catch((error) => {
+          let msg = error.response.data
+          this.errors.push(msg);
+        });
+      } else { // если нет id значит мы создаем
+        this.form.id = 0;
+        http.post("report",
+          JSON.stringify(this.form)
+        ).then(() => {
+          this.handleClose();
+        }).catch((error) => {
+          let msg = error.response.data;
+          this.errors.push(msg);
+        });
+      }
+    },
+    onClose() {
+      this.errors = [];
+    }
+  }
 }
 </script>
 

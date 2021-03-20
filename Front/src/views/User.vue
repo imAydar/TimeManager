@@ -40,19 +40,25 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { http } from '@/helpers/http-common';
 import ReportModal from '@/components/ReportModal.vue';
 
 export default {
-   components: {
-      ReportModal
-    },
+  components: {
+    ReportModal
+  },
   data() {
     return {
       reports: [],
       loadingTable: false,
       visible: false,
-      form:{ id:null, startDate:null, description:null, userId:null, hours:null}
+      form: {
+        id: null,
+        startDate: null,
+        description: null,
+        userId: null,
+        hours: null
+      }
     }
   },
   methods: {
@@ -61,33 +67,47 @@ export default {
     },
     loadReports() {
       this.loadingTable = true;
-      axios.get('http://localhost:5001/Report/GetReportsByUserId/' + this.$route.params.id)
-      .then(reports => {
-        this.reports = reports.data;
-      }).finally(()=>{
+      http.get('report/GetReportsByUserId/' + this.$route.params.id)
+        .then(reports => {
+          this.reports = reports.data;
+        }).finally(() => {
           this.loadingTable = false;
-      });
+        });
     },
     createReport(userId) {
-        this.form = { id:0, startDate:new Date(), description:null, userId:userId, hours:null};
-        this.visible = true;
-      },
+      this.form = {
+        id: 0,
+        startDate: new Date(),
+        description: null,
+        userId: userId,
+        hours: null
+      };
+      this.visible = true;
+    },
     editReport(report) {
       this.visible = true;
-      this.form = {id: report.id, startDate: report.startDate, description: report.description, userId : report.userId, hours: report.hours};
+      this.form = {
+        id: report.id,
+        startDate: report.startDate,
+        description: report.description,
+        userId: report.userId,
+        hours: report.hours
+      };
     },
     deleteReport(reportId) {
-      this.form = {id: reportId};//для удаления достаточно только id
-      axios.delete('http://localhost:5001/report', {
-                    data: this.form
-                }).then(() => {
-                    this.handleClose(); 
-                });
+      this.form = {
+        id: reportId
+      }; //для удаления достаточно только id
+      http.delete('report', {
+        data: this.form
+      }).then(() => {
+        this.handleClose();
+      });
     },
     handleClose() {
-        this.visible = false;
-        this.loadReports();
-      }
+      this.visible = false;
+      this.loadReports();
+    }
   },
   mounted() {
     this.loadReports();

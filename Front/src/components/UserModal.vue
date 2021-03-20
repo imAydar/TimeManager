@@ -22,78 +22,70 @@
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-            <el-button @click="handleClose()">Cancel</el-button>
-            <el-button type="primary" @click="sendForm()">Confirm</el-button>
+            <el-button @click="handleClose()">Отмена</el-button>
+            <el-button type="primary" @click="sendForm()">Ок</el-button>
             </span>
         </el-dialog>
     </div>
 </template>
 <script>
-import axios from 'axios';
+import { http } from '@/helpers/http-common';
 
 export default {
-    data(){
-        return{
-            errors:[]
-        }
-    },
-    props: {
-        visible: Boolean,
-        handleClose: Function,
-        form: Object
-    },
-    methods: {
-        checkInputs() {
-            for (var prop in this.form) {
-                if (this.form[prop] == "")
-                    this.form[prop] = null;
-            }
-            if (!this.validateEmail(this.form.email)) {
-                this.errors.push("mail is not valid");
-                return false;
-            }
-            return true;
-        },
-        validateEmail(email) {
-            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(String(email).toLowerCase());
-        },
-        sendForm() {
-            if (!this.checkInputs())
-                return;
-            if (this.form.id) { // если есть id значит мы редактируем
-                axios.put('/api/user',
-                    JSON.stringify(this.form), {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                ).then(() => { //если все хорошо закрываем модалку
-                    this.handleClose();
-                }).catch((error) => {
-                    let msg = error.response.data;
-                    this.errors.push(msg);
-                });
-            } else { // если нет id значит мы создаем
-                this.form.id = 0;
-                axios.post("/api/user",
-                    JSON.stringify(this.form), {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                ).then(() => {
-                    this.handleClose();
-                }).catch((error) => {
-                    let msg = error.response.data;
-                    this.errors.push(msg);
-                });
-            }
-        },
-        onClose(){
-            this.errors = [];
-        }
+  data() {
+    return {
+      errors: []
     }
+  },
+  props: {
+    visible: Boolean,
+    handleClose: Function,
+    form: Object
+  },
+  methods: {
+    checkInputs() {
+      for (var prop in this.form) {
+        if (this.form[prop] == "")
+          this.form[prop] = null;
+      }
+      if (!this.validateEmail(this.form.email)) {
+        this.errors.push("mail is not valid");
+        return false;
+      }
+      return true;
+    },
+    validateEmail(email) {
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    },
+    sendForm() {
+      if (!this.checkInputs())
+        return;
+      if (this.form.id) { // если есть id значит мы редактируем
+        http.put('user',
+          JSON.stringify(this.form)
+        ).then(() => { //если все хорошо закрываем модалку
+          this.handleClose();
+        }).catch((error) => {
+          let msg = error.response.data;
+          this.errors.push(msg);
+        });
+      } else { // если нет id значит мы создаем
+        this.form.id = 0;
+        http.post("user",
+          JSON.stringify(this.form)
+        ).then(() => {
+          this.handleClose();
+        }).catch((error) => {
+          let msg = error.response.data;
+          this.errors.push(msg);
+        });
+      }
+    },
+    onClose() {
+      this.errors = [];
+    }
+  }
 }
 </script>
 

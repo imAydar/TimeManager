@@ -1,5 +1,5 @@
 <template>
 <div>
-    Cant find path
+    Can't find path
     </div>
 </template>
