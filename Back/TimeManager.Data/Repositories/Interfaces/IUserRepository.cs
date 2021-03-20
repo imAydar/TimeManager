@@ -6,6 +6,5 @@ namespace TimeManager.Data.Repositories.Interfaces
 {
     public interface IUserRepository:IBaseRepository<User>
     {
-
     }
 }

@@ -81,7 +81,7 @@ namespace TimeManager.Web.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.InnerException.Message ?? ex.Message);
+                return BadRequest(PostgreCustomExceptionHandler.Handle(ex));
             }
         }
     }

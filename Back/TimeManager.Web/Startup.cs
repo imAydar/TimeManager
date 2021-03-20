@@ -29,8 +29,9 @@ namespace TimeManager.Web
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             });
-            services.AddControllers().AddNewtonsoftJson(x =>
-                x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddControllers().AddNewtonsoftJson();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TimeManager.Web", Version = "v1" });
@@ -59,8 +60,6 @@ namespace TimeManager.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

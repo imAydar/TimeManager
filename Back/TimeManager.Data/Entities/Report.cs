@@ -1,7 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-//using System.Text.Json.Serialization;
-using System.Text.Json;
 using Newtonsoft.Json;
 
 namespace TimeManager.Data.Entities
@@ -14,7 +11,7 @@ namespace TimeManager.Data.Entities
         public DateTime StartDate { get; set; }
         public int UserId { get; set; }
 
-        [Newtonsoft.Json.JsonIgnore] 
+        [JsonIgnore] 
         public User User { get; set; }
     }
 }

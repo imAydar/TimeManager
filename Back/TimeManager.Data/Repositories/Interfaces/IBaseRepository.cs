@@ -7,7 +7,6 @@ namespace TimeManager.Data.Repositories.Interfaces
         where TEntity : class
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
-        //IEnumerable<TEntity> RetrieveByCondition(Expression<Func<TEntity, bool>> expression);
         Task<TEntity> GetByIdAsync(int id);
         Task<TEntity> CreateAsync(TEntity entity);
         Task<TEntity> UpdateAsync(TEntity entity);

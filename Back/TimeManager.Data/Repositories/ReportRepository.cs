@@ -10,6 +10,7 @@ namespace TimeManager.Data.Repositories
     public class ReportRepository : BaseRepository<Report>, IReportRepository
     {
         private readonly ApplicationDbContext context;
+
         public ReportRepository(ApplicationDbContext context) : base(context)
         {
             this.context = context;

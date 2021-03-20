@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TimeManager.Data.Repositories.Interfaces;
 
 namespace TimeManager.Data.Repositories
@@ -16,7 +14,6 @@ namespace TimeManager.Data.Repositories
         {
             this.context = context;
         }
-
         public async Task<IEnumerable<TEntity>> GetAllAsync() =>
             await context.Set<TEntity>().ToListAsync();
 

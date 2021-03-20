@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TimeManager.Data.Entities;
 using TimeManager.Data.Repositories.Interfaces;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using TimeManager.Web.Exceptions;
