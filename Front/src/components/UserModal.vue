@@ -44,6 +44,7 @@ export default {
   },
   methods: {
     checkInputs() {
+      this.errors = [];
       for (var prop in this.form) {
         if (this.form[prop] == "")
           this.form[prop] = null;

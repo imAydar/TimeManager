@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <el-page-header @back="goBack" :content="'Отчеты пользователя №' + $route.params.id"></el-page-header>
+    <el-page-header @back="goBack" :content="'Отчеты пользователя ' + $route.query.name"></el-page-header>
      <div style="margin-top: 10px">
        <el-button @click="createReport($route.params.id)" type="primary">Создать новый отчет</el-button>
     </div>
@@ -75,6 +75,7 @@ export default {
         });
     },
     createReport(userId) {
+      console.log(this.$route);
       this.form = {
         id: 0,
         startDate: new Date(),

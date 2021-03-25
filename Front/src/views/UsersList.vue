@@ -77,7 +77,8 @@ export default {
       this.visible = true;
     },
     openUser(user) {
-      this.$router.push('/user/' + user.id);
+      //this.$router.push('/user/' + user.id).props({name: 'michael'});
+      this.$router.push({ path: '/user/' + user.id, query: { name: user.firstName } });
     },
     deleteUser(id) {
       this.form = {
